@@ -8,5 +8,5 @@ This project uses Covid-19 data to discuss the impact of government reaction on 
 <b> :</b>This code builds the SEIR simulation model to simulate the pandemic for New York State.
 
 ### 3) Data Sources:
-<b>Repository by Johns Hopkins CSSE </b>: https://github.com/yvettepeng/COVID-19/blob/master/README.md <br>
-<b>State Data and Policy Actions to Address Coronavirus </b>: https://www.kff.org/health-costs/issue-brief/state-data-and-policy-actions-to-address-coronavirus/
+<b>Repository by Johns Hopkins CSSE: </b> https://github.com/yvettepeng/COVID-19/blob/master/README.md <br>
+<b>State Data and Policy Actions to Address Coronavirus: </b> https://www.kff.org/health-costs/issue-brief/state-data-and-policy-actions-to-address-coronavirus/
