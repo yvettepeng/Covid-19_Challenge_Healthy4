@@ -1,0 +1,115 @@
+---
+title: "COVID Challenge"
+author: "Yvette Peng"
+date: "4/12/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(readxl)
+library("forecast")
+library("tseries") 
+```
+
+## R Markdown
+
+```{r}
+# read the dataset
+ny_data <- read_excel("state_measure_data.xlsx", sheet = "New York")
+```
+
+```{r}
+# specify the dependent variable
+ny_cases <- ny_data$cases
+plot.ts(ny_cases)		
+```
+
+```{r}
+# run an Dickey-Fuller Test to see if the time series is stationary
+adf.test(ny_cases)
+# the time series becomes stationary after third order differencing
+ny_cases_df = diff(ny_cases,differences = 3)	  		
+plot.ts(ny_cases_df)								
+adf.test(ny_cases_df)							
+```
+
+```{r}
+# plot pacf to decide the p
+Pacf(ny_cases_df, lag.max = 10)
+```
+```{r}
+# plot ACF to decide the q
+Acf(ny_cases_df, lag.max = 10)	
+```
+
+```{r}
+# we estimate an ARIMA(4,3,1)
+m1 = Arima(ny_cases, order=c(4,3,1))
+# make out-of-sample forecast for the next 21 days the number of accumulative confirmed cases
+# forecast the 90% prediction interval
+m1.predict = forecast:::forecast.Arima(m1, h = 21, level = 90)
+new_dates <- seq(as.Date("2020-03-01"), as.Date("2020-04-30"), by = "day")
+plot(m1.predict, main = "Forecast of Number of Cases in NYC by the End of April")
+```
+
+
+# Deaths Forecast
+```{r}
+as.numeric(as.Date("2020-03-01"))
+as.numeric(as.Date("2020-04-30"))
+```
+
+```{r}
+# specify the death as dependent variable
+ny_deaths <- ny_data$deaths
+plot.ts(ny_deaths)	
+```
+
+```{r}
+adf.test(ny_deaths)							
+ny_deaths_df = diff(ny_deaths,differences = 2)			
+plot.ts(ny_deaths_df)								
+adf.test(ny_deaths_df)							
+```
+```{r}
+Pacf(ny_deaths_df, lag.max = 10)
+```
+
+```{r}
+Acf(ny_deaths_df, lag.max = 10)	
+```
+
+```{r}
+m2 = Arima(ny_deaths, order=c(2,2,1))
+m2.predict = forecast:::forecast.Arima(m2, h = 21, level = 90)
+new_dates <- seq(as.Date("2020-03-01"), as.Date("2020-04-30"), by = "day")
+plot(m2.predict, main = "Forecast of Number of Deaths in NYC by the End of April")
+```
+
+
+```{r}
+# export all the forecast result into a dataframe
+new_dates <- seq(as.Date("2020-03-01"), as.Date("2020-04-30"), by = "day")
+new_cases_mean_data <- append(ny_data$cases, m1.predict$mean)
+new_cases_upper_data <- append(ny_data$cases, m1.predict$upper)
+new_cases_lower_data <- append(ny_data$cases, m1.predict$lower)
+
+new_deaths_mean_data <- append(ny_data$deaths, m2.predict$mean)
+new_deaths_upper_data <- append(ny_data$deaths, m2.predict$upper)
+new_deaths_lower_data <- append(ny_data$deaths, m2.predict$lower)
+
+vis_data <- as.data.frame(cbind(new_dates, new_cases_mean_data, new_cases_lower_data, new_cases_upper_data, new_deaths_mean_data, new_deaths_upper_data, new_deaths_lower_data))
+
+# format the date column
+vis_data$new_dates <- as.Date(vis_data$new_dates, origin = "1970-01-01")
+```
+
+
+
+```{r}
+# convert the dataframe to a csv file for future visualization purpose
+write.csv(vis_data, file = 'time_series_data.csv')
+```
+
+
