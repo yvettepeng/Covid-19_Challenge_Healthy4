@@ -1,6 +1,8 @@
 # Covid-19_Challenge_Healthy4
-### 1) Deliverable: https://yyge64.wixsite.com/covid19healthy4/ <br>
-This project uses Covid-19 data to discuss the impact of government reaction on the matter of disease control of New York State. Users will learn the timeline difference of NY State policies from those of Wuhan, China, and change of attitude of the U.S. government towards the disease. Users can also vision what the situation will be like without disease control policies or with more timely and effective policies. 
+### 1) Project Summary: <br>
+This project uses Covid-19 data to discuss the impact of government reaction on the matter of disease control of New York State. The project first compares the government responses of Wuhan, China and NY state after each area discovered its regional first case. Then, within the U.S., the project will further look at the responses of different parties including WHO, CDC and NY State government. The word cloud will shed a light on the change of politicians' attitudes towards the disease. Users of our html can also vision what the situation will be like if the current disease control measure takes place in another time.
+
+### 2) Deliverable: https://yyge64.wixsite.com/covid19healthy4/ <br>
 
 ### 2) Code: <br>
 <b>Time Series Model.rmd: </b> This code builds a time series model to forecast the confirmed cases of New York State. <br>
