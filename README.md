@@ -1,5 +1,6 @@
 # Covid-19_Challenge_Healthy4
 Visual: https://yyge64.wixsite.com/covid19healthy4/03-action-comparison
+<br>
 The html is the delivery of the project. This project uses Covid-19 data to discuss the impact of government reaction on the matter of disease control of New York State. Users will learn the timeline difference of NY State policies from those of Wuhan, China, and change of attitude of the U.S. government towards the disease. Users can also vision what the situation will be like without disease control policies or with more timely and effective policies. 
 
 Code:
